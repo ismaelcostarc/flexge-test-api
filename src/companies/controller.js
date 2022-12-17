@@ -9,7 +9,7 @@ module.exports = {
       res.status(200).json(companies)
     } catch (err) {
       logger.error(err)
-      res.status(500).json({ error: 'Erro de servidor' })
+      res.status(500).json({ error: 'Error Server' })
     }
   },
 }
