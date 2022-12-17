@@ -4,14 +4,16 @@
   "description": "Teste para a vaga de Desenvolvedor para a Flexge",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./index.js localhost 3000"
   },
   "author": "Ismael Assunção Costa",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "mongoose": "^6.8.0"
+    "mongoose": "^6.8.0",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
     "eslint": "^8.30.0",
