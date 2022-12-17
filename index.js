@@ -12,7 +12,8 @@ app.use(
 
 app.use(express.json())
 
-/* app.use('/api', require('./src/companies/routes'))
+app.use('/api', require('./src/companies/routes'))
+/*
 app.use('/api', require('./src/contracts/routes'))
 app.use('/api', require('./src/products/routes'))
  */
