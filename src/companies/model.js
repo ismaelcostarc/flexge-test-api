@@ -1,10 +1,18 @@
 const mongoose = require('mongoose')
 
-const Company = mongoose.model('Company', {
-  name: {
-    type: String,
-    required: true
+const CompanySchema = new mongoose.Schema(
+  {
+    _id: mongoose.Schema.Types.ObjectId,
+    name: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
   }
-})
+)
+
+const Company = mongoose.model('Company', CompanySchema)
 
 module.exports = Company
