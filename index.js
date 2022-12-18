@@ -14,10 +14,9 @@ app.use(express.json())
 
 app.use('/api', require('./src/companies/routes'))
 app.use('/api', require('./src/countries/routes'))
-/*
 app.use('/api', require('./src/contracts/routes'))
-*/
 app.use('/api', require('./src/products/routes'))
+
 mongoose
   .connect(
     `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/?retryWrites=true&w=majority`

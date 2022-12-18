@@ -54,7 +54,10 @@ const ContractSchema = new mongoose.Schema(
     products: {
       type: [
         {
-          name: String,
+          name: {
+            type: String,
+            required: true
+          },
           amount: Number,
           finalUnitPrice: Number,
           installments: Number,

@@ -6,8 +6,7 @@ const locale = require('../locale')
 module.exports = {
   async get(_, res) {
     try {
-      const companies = await Company.fin()
-      console.log(locale)
+      const companies = await Company.find()
 
       res.status(200).json(companies)
     } catch (err) {
