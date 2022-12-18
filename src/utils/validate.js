@@ -1,3 +1,5 @@
+const locale = require('../locale')
+
 module.exports = {
   requiredFields({ body }, res, requiredFields) {
     const fieldToWarnUser = requiredFields.find(field => !body[field])
@@ -8,7 +10,7 @@ module.exports = {
         .replace(/^\w/, c => c.toUpperCase())
         .trim()
 
-      res.status(402).json({ message: `${fieldName} is required` })
+      res.status(402).json({ message: `${fieldName} ${locale.messages.general.requiredData}` })
 
       return 0
     }

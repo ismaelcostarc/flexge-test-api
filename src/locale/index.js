@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-require('dotenv/config')
+require('dotenv-safe').config(  )
 
 const locale = process.env.LANGUAGE === 'en_US:en'
   ? {
@@ -7,6 +7,7 @@ const locale = process.env.LANGUAGE === 'en_US:en'
         general: {
           serverError: 'Server Error',
           incorrectParameter: 'Incorrect parameter',
+          requiredData: 'is required'
         },
         resources: {
           companies: {

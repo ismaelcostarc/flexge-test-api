@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const CompanyController = require('./controller')
 
-router.get('/company', CompanyController.get)
-router.post('/company', CompanyController.create)
+router.get('/', CompanyController.get)
+router.post('/', CompanyController.create)
 
 module.exports = router

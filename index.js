@@ -1,27 +1,25 @@
-require('dotenv/config')
+require('dotenv-safe').config()
 const express = require('express')
 const logger = require('./logger')
 const mongoose = require('mongoose')
 const app = express()
+const createRoutes = require('./api')
 
 app.use(
   express.urlencoded({
     extended: true,
   })
 )
-
 app.use(express.json())
 
-app.use('/api', require('./src/companies/routes'))
-app.use('/api', require('./src/countries/routes'))
-app.use('/api', require('./src/contracts/routes'))
-app.use('/api', require('./src/products/routes'))
+createRoutes(app)
 
 mongoose
   .connect(
-    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/?retryWrites=true&w=majority`
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/?retryWrites=true&w=majority`,
+    { useNewUrlParser: true }
   )
   .then(() => {
-    app.listen(3000)
+    app.listen(process.env.SERVER_PORT)
   })
   .catch(err => logger.error(err))
