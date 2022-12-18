@@ -1,17 +1,17 @@
+/* eslint-disable indent */
 const logger = require('../../logger')
 const Country = require('./model')
 
 module.exports = {
   async get(req, res) {
+    const { field } = req.query
+
     try {
-      const countries = await Country.find()
+      const countries = field
+        ? await Country.aggregate([{ $project: { [field]: `$${field}` } }])
+        : await Country.find()
 
-      const { field } = req.query
-
-      if (field) {
-        res.status(200).json(countries.map(country => country[field]))
-        return
-      }
+      console.log(countries)
 
       res.status(200).json(countries)
     } catch (err) {
@@ -21,25 +21,24 @@ module.exports = {
   },
   async getById(req, res) {
     const id = req.params.id
+    const { field } = req.query
 
     try {
-      const country = await Country.findOne({ _id: id })
+      const country = field
+        ? await Country.aggregate([
+            { $match: { $expr: { $eq: ['$_id', { $toObjectId: id }] } } },
+            { $project: { [field]: `$${field}` } },
+          ])
+        : await Country.findOne({ _id: id })
 
       if (!country) {
         res.status(404).json({ message: 'Country not found' })
         return
       }
 
-      const { field } = req.query
-
-      if (field) {
-        res.status(200).json(country[field])
-        return
-      }
-
       res.status(200).json(country)
     } catch (err) {
-      logger.error(err)
+      logger.error(err) /*  */
       res.status(500).json({ error: 'Error Server' })
     }
   },
@@ -59,7 +58,7 @@ module.exports = {
     try {
       const country = {
         name,
-        states
+        states,
       }
 
       await Country.create(country)
