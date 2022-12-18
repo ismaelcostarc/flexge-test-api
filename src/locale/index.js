@@ -10,6 +10,10 @@ const locale =
             incorrectParameter: 'Incorrect parameter',
             requiredData: 'is required',
           },
+          authentication: {
+            noToken: 'No token provided',
+            failed: 'Failed to authenticate token'
+          },
           resources: {
             companies: {
               created: 'Company created',
@@ -29,6 +33,7 @@ const locale =
             users: {
               notFound: 'User does not exist',
               wrongCredentials: 'Wrong password',
+              logged: 'User is logged'
             },
           },
         },

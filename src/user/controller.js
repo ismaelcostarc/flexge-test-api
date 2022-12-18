@@ -65,7 +65,7 @@ module.exports = {
   },
   isLogged(_, res) {
     try {
-      res.status(200).json({ message: 'User is logged' })
+      res.status(200).json({ message: locale.messages.resources.users.logged })
     } catch (err) {
       logger.error(err)
       res.status(500).json({ error: locale.messages.general.serverError })
