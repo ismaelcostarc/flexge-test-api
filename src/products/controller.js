@@ -1,6 +1,7 @@
 const logger = require('../../logger')
 const Product = require('./model')
 const validate = require('../utils/validate')
+const locale = require('../locale')
 
 module.exports = {
   async get(_, res) {
@@ -10,7 +11,7 @@ module.exports = {
       res.status(200).json(products)
     } catch (err) {
       logger.error(err)
-      res.status(500).json({ error: 'Server Error' })
+      res.status(500).json({ error: locale.messages.general.serverError })
     }
   },
   async create(req, res) {
@@ -22,10 +23,10 @@ module.exports = {
     try {
       await Product.create({ name })
 
-      res.status(201).json({ message: 'Product created' })
+      res.status(201).json({ message: locale.messages.resources.products.created })
     } catch (err) {
       logger.error(err)
-      res.status(500).json({ error: 'Server Error' })
+      res.status(500).json({ error: locale.messages.general.serverError })
     }
   },
 }

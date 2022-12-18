@@ -2,6 +2,7 @@
 const logger = require('../../logger')
 const validate = require('../utils/validate')
 const Country = require('./model')
+const locale = require('../locale')
 
 module.exports = {
   async get(req, res) {
@@ -15,7 +16,7 @@ module.exports = {
       res.status(200).json(countries)
     } catch (err) {
       logger.error(err)
-      res.status(500).json({ error: 'Server Error' })
+      res.status(500).json({ error: locale.messages.general.serverError })
     }
   },
   async getById(req, res) {
@@ -31,7 +32,7 @@ module.exports = {
         : await Country.findOne({ _id: id })
 
       if (!country) {
-        res.status(404).json({ message: 'Country not found' })
+        res.status(404).json({ message: locale.messages.resources.countries.notFound })
         return
       }
 
@@ -40,11 +41,11 @@ module.exports = {
       logger.error(err)
 
       if (err.kind === 'ObjectId') {
-        res.status(400).json({ error: 'Incorrect parameter' })
+        res.status(400).json({ error: locale.messages.general.incorrectParameter })
         return
       }
       
-      res.status(500).json({ error: 'Server Error' })
+      res.status(500).json({ error: locale.messages.general.serverError })
     }
   },
   async create(req, res) {
@@ -56,10 +57,10 @@ module.exports = {
     try {
       await Country.create({ name, states })
 
-      res.status(201).json({ message: 'Country created' })
+      res.status(201).json({ message: locale.messages.resources.countries.created })
     } catch (err) {
       logger.error(err)
-      res.status(500).json({ error: 'Server Error' })
+      res.status(500).json({ error: locale.messages.general.serverError })
     }
   },
 }
