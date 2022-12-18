@@ -10,7 +10,7 @@ module.exports = {
       res.status(200).json(companies)
     } catch (err) {
       logger.error(err)
-      res.status(500).json({ error: 'Error Server' })
+      res.status(500).json({ error: 'Server Error' })
     }
   },
   async create(req, res) {
@@ -25,7 +25,7 @@ module.exports = {
       res.status(201).json({ message: 'Country created' })
     } catch (err) {
       logger.error(err)
-      res.status(500).json({ error: 'Error Server' })
+      res.status(500).json({ error: 'Server Error' })
     }
   },
 }

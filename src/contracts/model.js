@@ -4,61 +4,66 @@ const ContractSchema = new mongoose.Schema(
   {
     country: {
       type: String,
-      required: true
+      required: true,
     },
     state: {
       type: String,
-      required: true
+      required: true,
     },
     city: String,
     documentNumber: {
       type: Number,
-      required: true
+      required: true,
     },
     socialReason: {
       type: String,
-      required: true
+      required: true,
     },
     address: {
       type: String,
-      required: true
+      required: true,
     },
     district: {
       type: String,
-      required: true
+      required: true,
     },
     number: {
       type: Number,
-      required: true
+      required: true,
     },
     zipCode: {
       type: Number,
-      required: true
+      required: true,
     },
     email: {
       type: String,
-      required: true
+      required: true,
     },
     phone: Number,
     startsIn: {
       type: Date,
-      required: true
+      required: true,
     },
     endsIn: Date,
     dueDay: {
       type: Number,
-      required: true
+      required: true,
     },
     file: Buffer,
     company: String,
-    products: [{
-      name: String,
-      amount: Number,
-      finalUnitPrice: Number,
-      installments: Number,
-      paidInstallments: Number,
-      beginningOfTerm: Date
-    }]
+    products: {
+      type: [
+        {
+          name: String,
+          amount: Number,
+          finalUnitPrice: Number,
+          installments: Number,
+          paidInstallments: Number,
+          beginningOfTerm: Date,
+        },
+      ],
+      required: true,
+    },
   },
   {
     timestamps: true,

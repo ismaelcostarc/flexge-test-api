@@ -15,7 +15,7 @@ module.exports = {
       res.status(200).json(countries)
     } catch (err) {
       logger.error(err)
-      res.status(500).json({ error: 'Error Server' })
+      res.status(500).json({ error: 'Server Error' })
     }
   },
   async getById(req, res) {
@@ -37,8 +37,14 @@ module.exports = {
 
       res.status(200).json(country)
     } catch (err) {
-      logger.error(err) /*  */
-      res.status(500).json({ error: 'Error Server' })
+      logger.error(err)
+
+      if (err.kind === 'ObjectId') {
+        res.status(400).json({ error: 'Incorrect parameter' })
+        return
+      }
+      
+      res.status(500).json({ error: 'Server Error' })
     }
   },
   async create(req, res) {
@@ -53,7 +59,7 @@ module.exports = {
       res.status(201).json({ message: 'Country created' })
     } catch (err) {
       logger.error(err)
-      res.status(500).json({ error: 'Error Server' })
+      res.status(500).json({ error: 'Server Error' })
     }
   },
 }
