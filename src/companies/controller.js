@@ -1,6 +1,6 @@
 const logger = require('../../logger')
-const mongoose = require('mongoose')
 const Company = require('./model')
+const validate = require('../utils/validate')
 
 module.exports = {
   async get(_, res) {
@@ -14,20 +14,13 @@ module.exports = {
     }
   },
   async create(req, res) {
+    const isValid = validate.requiredFields(req, res, ['name'])
+    if (!isValid) return
+
     const { name } = req.body
 
-    if (!name) {
-      res.status(402).json({ message: 'Name is required' })
-      return
-    }
-
-    const company = {
-      _id: new mongoose.Types.ObjectId(),
-      name
-    }
-
     try {
-      await Company.create(company)
+      await Company.create({ name })
 
       res.status(201).json({ message: 'Country created' })
     } catch (err) {

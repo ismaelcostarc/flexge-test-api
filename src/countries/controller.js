@@ -43,12 +43,11 @@ module.exports = {
   },
   async create(req, res) {
     const isValid = validate.requiredFields(req, res, ['name', 'states'])
-
     if (!isValid) return
 
-    try {
-      const { name, states } = req.body
+    const { name, states } = req.body
 
+    try {
       await Country.create({ name, states })
 
       res.status(201).json({ message: 'Country created' })
