@@ -25,4 +25,4 @@ mongoose
   .then(() => {
     app.listen(3000)
   })
-  .catch((err) => logger.error(err))
+  .catch(err => logger.error(err))
