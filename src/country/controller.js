@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 const logger = require('../../logger')
-const validate = require('../utils/validate')
+const validate = require('../utils/validation')
 const Country = require('./model')
 const locale = require('../locale')
 

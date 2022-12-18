@@ -1,6 +1,6 @@
 const logger = require('../../logger')
 const Product = require('./model')
-const validate = require('../utils/validate')
+const validate = require('../utils/validation')
 const locale = require('../locale')
 
 module.exports = {

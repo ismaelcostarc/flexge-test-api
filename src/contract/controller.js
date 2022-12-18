@@ -1,5 +1,5 @@
 const logger = require('../../logger')
-const validate = require('../utils/validate')
+const validate = require('../utils/validation')
 const Contract = require('./model')
 const REQUIRED_FIELDS = require('./constants')
 const locale = require('../locale')
@@ -136,7 +136,7 @@ module.exports = {
     try {
       const contract = await Contract.findOne({ _id: id })
       if (!contract) {
-        res.status(422).json({ message: locale.messages.resources.contracts.notFound })
+        res.status(404).json({ message: locale.messages.resources.contracts.notFound })
         return
       }
 
@@ -160,7 +160,7 @@ module.exports = {
     try {
       const contract = await Contract.findOne({ _id: id })
       if (!contract) {
-        res.status(422).json({ message: locale.messages.resources.contracts.notFound })
+        res.status(404).json({ message: locale.messages.resources.contracts.notFound })
         return
       }
 

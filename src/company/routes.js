@@ -1,7 +1,8 @@
 const router = require('express').Router()
+const verifyJWT = require('../utils/authentication')
 const CompanyController = require('./controller')
 
-router.get('/', CompanyController.get)
-router.post('/', CompanyController.create)
+router.get('/', verifyJWT, CompanyController.get)
+router.post('/', verifyJWT, CompanyController.create)
 
 module.exports = router
