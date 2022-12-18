@@ -1,5 +1,6 @@
 /* eslint-disable indent */
 const logger = require('../../logger')
+const validate = require('../utils/validate')
 const Country = require('./model')
 
 module.exports = {
@@ -10,8 +11,6 @@ module.exports = {
       const countries = field
         ? await Country.aggregate([{ $project: { [field]: `$${field}` } }])
         : await Country.find()
-
-      console.log(countries)
 
       res.status(200).json(countries)
     } catch (err) {
@@ -43,25 +42,14 @@ module.exports = {
     }
   },
   async create(req, res) {
-    const { name, states } = req.body
+    const isValid = validate.requiredFields(req, res, ['name', 'states'])
 
-    if (!name) {
-      res.status(402).json({ message: 'Name is required' })
-      return
-    }
-
-    if (!states) {
-      res.status(402).json({ message: 'State list is required' })
-      return
-    }
+    if (!isValid) return
 
     try {
-      const country = {
-        name,
-        states,
-      }
+      const { name, states } = req.body
 
-      await Country.create(country)
+      await Country.create({ name, states })
 
       res.status(201).json({ message: 'Country created' })
     } catch (err) {

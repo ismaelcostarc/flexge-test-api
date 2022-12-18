@@ -1,10 +1,10 @@
 const router = require('express').Router()
 const ContractController = require('./controller')
 
-router.post('/company', ContractController.create)
-router.get('/company', ContractController.read)
-router.get('/company/:id', ContractController.read)
-router.patch('/company/:id', ContractController.update)
-router.delete('/company/:id', ContractController.delete)
+router.post('/contract', ContractController.create)
+router.get('/contract', ContractController.get)
+router.get('/contract/:id', ContractController.getById)
+router.patch('/contract/:id', ContractController.update)
+router.delete('/contract/:id', ContractController.delete)
 
 module.exports = router
