@@ -2,7 +2,7 @@ const logger = require('../../logger')
 const Company = require('./model')
 
 module.exports = {
-  async read(_, res) {
+  async get(_, res) {
     try {
       const companies = await Company.find()
 

@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const CompanyController = require('./controller')
 
-router.get('/companies', CompanyController.read)
+router.get('/company', CompanyController.get)
 
 module.exports = router

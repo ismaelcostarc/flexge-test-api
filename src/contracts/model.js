@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const Contract = mongoose.model('Contract', {
-  name: String,
+  country: String,
 })
 
 module.exports = Contract

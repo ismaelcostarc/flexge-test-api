@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 
-const Company = mongoose.model('Company', {
+const Product = mongoose.model('Product', {
   name: {
     type: String,
     required: true
-  }
+  },
 })
 
-module.exports = Company
+module.exports = Product
