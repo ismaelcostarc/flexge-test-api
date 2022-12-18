@@ -44,14 +44,14 @@ module.exports = {
     }
   },
   async create(req, res) {
-    const { name, stateList } = req.body
+    const { name, states } = req.body
 
     if (!name) {
       res.status(402).json({ message: 'Name is required' })
       return
     }
 
-    if (!stateList) {
+    if (!states) {
       res.status(402).json({ message: 'State list is required' })
       return
     }
@@ -59,7 +59,7 @@ module.exports = {
     try {
       const country = {
         name,
-        stateList,
+        states
       }
 
       await Country.create(country)
