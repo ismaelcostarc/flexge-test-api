@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 const logger = require('../../logger')
 const validate = require('../utils/validation')
 const Contract = require('./model')
@@ -52,17 +53,49 @@ module.exports = {
     try {
       await Contract.create(contract)
 
-      res.status(200).json({ message: locale.messages.resources.contracts.created })
+      res
+        .status(200)
+        .json({ message: locale.messages.resources.contracts.created })
     } catch (err) {
       logger.error(err)
       res.status(500).json({ error: locale.messages.general.serverError })
     }
   },
-  async get(_, res) {
-    try {
-      const contract = await Contract.find()
+  async get(req, res) {
+    const { page, pageSize } = req.query
+    let contracts = {}
 
-      res.status(200).json(contract)
+    try {
+      if (page) {
+        const numberOfPage = parseInt(page)
+        const quantityOfItems = parseInt(pageSize)
+
+        const skip = quantityOfItems * numberOfPage - quantityOfItems
+        const limit = quantityOfItems || 10
+
+        contracts = await Contract.aggregate([
+          {
+            $sort: {
+              _id: -1,
+            },
+          },
+          {
+            $skip: skip,
+          },
+          {
+            $limit: limit,
+          },
+        ])
+      } else {
+        contracts = await Contract.aggregate([
+          {
+            $sort: {
+              _id: -1,
+            },
+          },
+        ])
+      }
+      res.status(200).json(contracts)
     } catch (err) {
       logger.error(err)
       res.status(500).json({ error: locale.messages.general.serverError })
@@ -75,7 +108,9 @@ module.exports = {
       const contract = await Contract.findOne({ _id: id })
 
       if (!contract) {
-        res.status(404).json({ message: locale.messages.resources.contracts.notFound })
+        res
+          .status(404)
+          .json({ message: locale.messages.resources.contracts.notFound })
         return
       }
 
@@ -84,7 +119,9 @@ module.exports = {
       logger.error(err)
 
       if (err.kind === 'ObjectId') {
-        res.status(400).json({ error: locale.messages.general.incorrectParameter })
+        res
+          .status(400)
+          .json({ error: locale.messages.general.incorrectParameter })
         return
       }
 
@@ -136,7 +173,9 @@ module.exports = {
     try {
       const contract = await Contract.findOne({ _id: id })
       if (!contract) {
-        res.status(404).json({ message: locale.messages.resources.contracts.notFound })
+        res
+          .status(404)
+          .json({ message: locale.messages.resources.contracts.notFound })
         return
       }
 
@@ -147,7 +186,9 @@ module.exports = {
       logger.error(err)
 
       if (err.kind === 'ObjectId') {
-        res.status(400).json({ error: locale.messages.general.incorrectParameter })
+        res
+          .status(400)
+          .json({ error: locale.messages.general.incorrectParameter })
         return
       }
 
@@ -160,18 +201,24 @@ module.exports = {
     try {
       const contract = await Contract.findOne({ _id: id })
       if (!contract) {
-        res.status(404).json({ message: locale.messages.resources.contracts.notFound })
+        res
+          .status(404)
+          .json({ message: locale.messages.resources.contracts.notFound })
         return
       }
 
       await Contract.deleteOne({ _id: id })
 
-      res.status(200).json({ message: locale.messages.resources.contracts.removed })
+      res
+        .status(200)
+        .json({ message: locale.messages.resources.contracts.removed })
     } catch (err) {
       logger.error(err)
 
       if (err.kind === 'ObjectId') {
-        res.status(400).json({ error: locale.messages.general.incorrectParameter })
+        res
+          .status(400)
+          .json({ error: locale.messages.general.incorrectParameter })
         return
       }
 
