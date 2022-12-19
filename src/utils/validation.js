@@ -1,7 +1,7 @@
 const locale = require('../locale')
 
 module.exports = {
-  requiredFields({ body }, res, requiredFields) {
+  containRequiredFields({ body }, res, requiredFields) {
     const fieldToWarnUser = requiredFields.find(field => !body[field])
 
     if (fieldToWarnUser) {

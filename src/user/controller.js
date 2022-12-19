@@ -1,6 +1,6 @@
 const logger = require('../../logger')
 const User = require('./model')
-const validate = require('../utils/validation')
+const validation = require('../utils/validation')
 const locale = require('../locale')
 const BCrypt = require('bcryptjs')
 const JWT = require('jsonwebtoken')
@@ -8,7 +8,7 @@ require('dotenv-safe').config()
 
 module.exports = {
   async signin(req, res) {
-    const isValid = validate.requiredFields(req, res, ['username', 'password'])
+    const isValid = validation.containRequiredFields(req, res, ['username', 'password'])
     if (!isValid) return
 
     const { username, password } = req.body
@@ -41,7 +41,7 @@ module.exports = {
     }
   },
   async signup(req, res) {
-    const isValid = validate.requiredFields(req, res, ['username', 'password'])
+    const isValid = validation.containRequiredFields(req, res, ['username', 'password'])
     if (!isValid) return
 
     const { username, password } = req.body

@@ -1,6 +1,6 @@
 const logger = require('../../logger')
 const Product = require('./model')
-const validate = require('../utils/validation')
+const validation = require('../utils/validation')
 const locale = require('../locale')
 
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
     }
   },
   async create(req, res) {
-    const isValid = validate.requiredFields(req, res, ['name'])
+    const isValid = validation.containRequiredFields(req, res, ['name'])
     if (!isValid) return
 
     const { name } = req.body

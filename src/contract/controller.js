@@ -1,13 +1,13 @@
 /* eslint-disable indent */
 const logger = require('../../logger')
-const validate = require('../utils/validation')
+const validation = require('../utils/validation')
 const Contract = require('./model')
 const REQUIRED_FIELDS = require('./constants')
 const locale = require('../locale')
 
 module.exports = {
   async create(req, res) {
-    const isValid = validate.requiredFields(req, res, REQUIRED_FIELDS)
+    const isValid = validation.containRequiredFields(req, res, REQUIRED_FIELDS)
     if (!isValid) return
 
     const {
