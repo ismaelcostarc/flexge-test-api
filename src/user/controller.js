@@ -17,16 +17,14 @@ module.exports = {
       const user = await User.findOne({ username })
 
       if (!user) {
-        res
-          .status(404)
-          .json({ message: locale.messages.resources.users.notFound })
+        res.statusMessage = locale.messages.resources.users.notFound
+        res.status(404).end()
         return
       }
 
       if (!BCrypt.compareSync(password, user.password)) {
-        res
-          .status(404)
-          .json({ message: locale.messages.resources.users.wrongCredentials })
+        res.statusMessage = locale.messages.resources.users.wrongCredentials
+        res.status(404).end()
         return
       }
 
@@ -37,7 +35,8 @@ module.exports = {
       res.status(200).json({ token: token })
     } catch (err) {
       logger.error(err)
-      res.status(500).json({ error: locale.messages.general.serverError })
+      res.statusMessage = locale.messages.general.serverError
+      res.status(500).end()
     }
   },
   async signup(req, res) {
@@ -60,7 +59,8 @@ module.exports = {
       res.status(200).json({ token: token })
     } catch (err) {
       logger.error(err)
-      res.status(500).json({ error: locale.messages.general.serverError })
+      res.statusMessage = locale.messages.general.serverError
+      res.status(500).end()
     }
   },
   isLogged(_, res) {
@@ -68,7 +68,8 @@ module.exports = {
       res.status(200).json({ message: locale.messages.resources.users.logged })
     } catch (err) {
       logger.error(err)
-      res.status(500).json({ error: locale.messages.general.serverError })
+      res.statusMessage = locale.messages.general.serverError
+      res.status(500).end()
     }
   },
 }

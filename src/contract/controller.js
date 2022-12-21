@@ -57,8 +57,8 @@ module.exports = {
         .status(200)
         .json({ message: locale.messages.resources.contracts.created })
     } catch (err) {
-      logger.error(err)
-      res.status(500).json({ error: locale.messages.general.serverError })
+      res.statusMessage = locale.messages.general.serverError
+      res.status(500).end()
     }
   },
   async get(req, res) {
@@ -97,8 +97,8 @@ module.exports = {
       }
       res.status(200).json(contracts)
     } catch (err) {
-      logger.error(err)
-      res.status(500).json({ error: locale.messages.general.serverError })
+      res.statusMessage = locale.messages.general.serverError
+      res.status(500).end()
     }
   },
   async getById(req, res) {
@@ -108,9 +108,8 @@ module.exports = {
       const contract = await Contract.findOne({ _id: id })
 
       if (!contract) {
-        res
-          .status(404)
-          .json({ message: locale.messages.resources.contracts.notFound })
+        res.statusMessage = locale.messages.resources.contracts.notFound
+        res.status(404).end()
         return
       }
 
@@ -119,13 +118,13 @@ module.exports = {
       logger.error(err)
 
       if (err.kind === 'ObjectId') {
-        res
-          .status(400)
-          .json({ error: locale.messages.general.incorrectParameter })
+        res.statusMessage = locale.messages.general.incorrectParameter
+        res.status(500).end()
         return
       }
 
-      res.status(500).json({ error: locale.messages.general.serverError })
+      res.statusMessage = locale.messages.general.serverError
+      res.status(500).end()
     }
   },
   async update(req, res) {
@@ -173,9 +172,8 @@ module.exports = {
     try {
       const contract = await Contract.findOne({ _id: id })
       if (!contract) {
-        res
-          .status(404)
-          .json({ message: locale.messages.resources.contracts.notFound })
+        res.statusMessage = locale.messages.resources.contracts.notFound
+        res.status(404).end()
         return
       }
 
@@ -186,13 +184,13 @@ module.exports = {
       logger.error(err)
 
       if (err.kind === 'ObjectId') {
-        res
-          .status(400)
-          .json({ error: locale.messages.general.incorrectParameter })
+        res.statusMessage = locale.messages.general.incorrectParameter
+        res.status(400).end()
         return
       }
 
-      res.status(500).json({ error: locale.messages.general.serverError })
+      res.statusMessage = locale.messages.general.serverError
+      res.status(500).end()
     }
   },
   async delete(req, res) {
@@ -201,9 +199,8 @@ module.exports = {
     try {
       const contract = await Contract.findOne({ _id: id })
       if (!contract) {
-        res
-          .status(404)
-          .json({ message: locale.messages.resources.contracts.notFound })
+        res.statusMessage = locale.messages.resources.contracts.notFound
+        res.status(404).end()
         return
       }
 
@@ -216,13 +213,13 @@ module.exports = {
       logger.error(err)
 
       if (err.kind === 'ObjectId') {
-        res
-          .status(400)
-          .json({ error: locale.messages.general.incorrectParameter })
+        res.statusMessage = locale.messages.general.incorrectParameter
+        res.status(400).end()
         return
       }
 
-      res.status(500).json({ error: locale.messages.general.serverError })
+      res.statusMessage = locale.messages.general.serverError
+      res.status(500).end()
     }
   },
 }

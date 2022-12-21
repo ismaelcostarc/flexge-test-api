@@ -11,7 +11,8 @@ module.exports = {
       res.status(200).json(companies)
     } catch (err) {
       logger.error(err)
-      res.status(500).json({ error: locale.messages.general.serverError })
+      res.statusMessage = locale.messages.general.serverError
+      res.status(500).end()
     }
   },
   async create(req, res) {
@@ -26,7 +27,8 @@ module.exports = {
       res.status(201).json({ message: 'Company created' })
     } catch (err) {
       logger.error(err)
-      res.status(500).json({ error: locale.messages.general.serverError })
+      res.statusMessage = locale.messages.general.serverError
+      res.status(500).end()
     }
   },
 }

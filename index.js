@@ -4,6 +4,7 @@ const logger = require('./logger')
 const mongoose = require('mongoose')
 const app = express()
 const createRoutes = require('./api')
+const cors = require('cors')
 
 app.use(
   express.urlencoded({
@@ -11,6 +12,7 @@ app.use(
   })
 )
 app.use(express.json())
+app.use(cors())
 
 createRoutes(app)
 

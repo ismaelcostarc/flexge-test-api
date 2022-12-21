@@ -16,7 +16,8 @@ module.exports = {
       res.status(200).json(countries)
     } catch (err) {
       logger.error(err)
-      res.status(500).json({ error: locale.messages.general.serverError })
+      res.statusMessage = locale.messages.general.serverError
+      res.status(500).end()
     }
   },
   async getById(req, res) {
@@ -32,7 +33,8 @@ module.exports = {
         : await Country.findOne({ _id: id })
 
       if (!country) {
-        res.status(404).json({ message: locale.messages.resources.countries.notFound })
+        res.statusMessage = locale.messages.resources.countries.notFound
+        res.status(404).end()
         return
       }
 
@@ -41,11 +43,13 @@ module.exports = {
       logger.error(err)
 
       if (err.kind === 'ObjectId') {
-        res.status(400).json({ error: locale.messages.general.incorrectParameter })
+        res.statusMessage = locale.messages.general.incorrectParameter
+        res.status(400).end()
         return
       }
       
-      res.status(500).json({ error: locale.messages.general.serverError })
+      res.statusMessage = locale.messages.general.serverError
+      res.status(500).end()
     }
   },
   async create(req, res) {
@@ -60,7 +64,8 @@ module.exports = {
       res.status(201).json({ message: locale.messages.resources.countries.created })
     } catch (err) {
       logger.error(err)
-      res.status(500).json({ error: locale.messages.general.serverError })
+      res.statusMessage = locale.messages.general.serverError
+      res.status(500).end()
     }
   },
 }

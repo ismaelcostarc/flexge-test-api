@@ -10,8 +10,8 @@ module.exports = {
         .replace(/^\w/, c => c.toUpperCase())
         .trim()
 
-      res.status(402).json({ message: `${fieldName} ${locale.messages.general.requiredData}` })
-
+      res.statusMessage = `${fieldName} ${locale.messages.general.requiredData}`
+      res.status(422).end()
       return 0
     }
 
