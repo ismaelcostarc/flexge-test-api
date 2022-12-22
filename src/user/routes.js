@@ -4,6 +4,6 @@ const UserController = require('./controller')
 
 router.post('/signin', UserController.signin)
 router.post('/signup', UserController.signup)
-router.get('/isLogged', verifyJWT, UserController.isLogged)
+router.get('/isValid', verifyJWT, UserController.isValid)
 
 module.exports = router

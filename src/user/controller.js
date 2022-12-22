@@ -63,7 +63,7 @@ module.exports = {
       res.status(500).end()
     }
   },
-  isLogged(_, res) {
+  isValid(_, res) {
     try {
       res.status(200).json({ message: locale.messages.resources.users.logged })
     } catch (err) {
